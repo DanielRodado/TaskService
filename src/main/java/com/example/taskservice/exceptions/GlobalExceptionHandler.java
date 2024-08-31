@@ -14,4 +14,9 @@ public class GlobalExceptionHandler {
         return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage()));
     }
 
+    @ExceptionHandler(InvalidTaskException.class)
+    public Mono<ResponseEntity<String>> handleInvalidTaskException(InvalidTaskException ex) {
+        return Mono.just(ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage()));
+    }
+
 }

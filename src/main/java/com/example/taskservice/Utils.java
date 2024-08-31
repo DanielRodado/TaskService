@@ -11,23 +11,23 @@ import org.springframework.context.annotation.Configuration;
 public class Utils {
 
     @Bean
-    public CommandLineRunner commandLineRunner(TaskRepository taskRepository) {
+    public CommandLineRunner initData(TaskRepository taskRepository) {
         return args -> {
 
-            Task task = new Task("Task 1", "Description 1", TaskStatus.PENDING, 1L);
+            /*Task task = new Task("Preparar desayuno", "Preparar una taza de cafe", TaskStatus.COMPLETED, 1L);
             taskRepository.save(task).subscribe();
 
-            task = new Task("Task 2", "Description 2", TaskStatus.PENDING, 1L);
-            taskRepository.save(task).subscribe();
+            Task task2 = new Task("Hacer la cama", "Dejar la habitacion en orden", TaskStatus.PENDING, 1L);
+            taskRepository.save(task2).subscribe();
 
-            task = new Task("Task 3", "Description 3", TaskStatus.PENDING, 1L);
-            taskRepository.save(task).subscribe();
+            Task task3 = new Task("Ir al gimnasio", "Ir al gimnasio a hacer ejercicio", TaskStatus.IN_PROGRESS, 1L);
+            taskRepository.save(task3).subscribe();
 
-            task = new Task("Task 4", "Description 4", TaskStatus.PENDING, 2L);
-            taskRepository.save(task).subscribe();
+            Task task4 = new Task("Hace la compra", "Comprar alimentos en el supermercado", TaskStatus.PENDING, 2L);
+            taskRepository.save(task4).subscribe();
 
-            task = new Task("Task 5", "Description 5", TaskStatus.PENDING, 2L);
-            taskRepository.save(task).subscribe();
+            Task task5 = new Task("Leer un libro", "Leer un libro de 30 minutos", TaskStatus.COMPLETED, 2L);
+            taskRepository.save(task5).subscribe();*/
 
         };
     }

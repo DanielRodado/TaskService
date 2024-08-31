@@ -36,11 +36,24 @@ public class TaskMapper {
                                 new TaskEntity(
                                         taskApp.title(),
                                         taskApp.description(),
-                                        TaskStatus.valueOf(taskApp.status()),
+                                        TaskStatus.valueOf(taskApp.status().toUpperCase()),
                                         taskApp.userId()
                                 )
                         )
                 );
+    }
+
+    // from entity DTO Application to Entity Mono
+
+    public static Mono<TaskEntity> toTaskEntityMono(TaskApplicationDTO taskApp) {
+        return Mono.just(
+                new TaskEntity(
+                        taskApp.title(),
+                        taskApp.description(),
+                        TaskStatus.valueOf(taskApp.status().toUpperCase()),
+                        taskApp.userId()
+                )
+        );
     }
 
 }

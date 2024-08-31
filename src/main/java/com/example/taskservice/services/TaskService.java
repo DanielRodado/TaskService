@@ -32,4 +32,8 @@ public interface TaskService {
 
     Mono<Void> deleteTask(Long id);
 
+    // validations
+
+    Mono<TaskApplicationDTO> validateTaskApp(TaskApplicationDTO taskApp);
+
 }

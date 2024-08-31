@@ -3,13 +3,17 @@ package com.example.taskservice.services.implement;
 import com.example.taskservice.dto.TaskApplicationDTO;
 import com.example.taskservice.dto.TaskEntityDTO;
 import com.example.taskservice.enums.TaskStatus;
+import com.example.taskservice.exceptions.InvalidTaskException;
 import com.example.taskservice.exceptions.TaskNotFoundException;
 import com.example.taskservice.mappers.TaskMapper;
 import com.example.taskservice.models.TaskEntity;
 import com.example.taskservice.repositories.TaskRepository;
 import com.example.taskservice.services.TaskService;
+import com.example.taskservice.validations.TaskAppValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Errors;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -20,6 +24,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private TaskAppValidator taskAppValidator;
 
     // Methods Repository
 
@@ -56,7 +63,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Mono<TaskEntityDTO> createTask(Mono<TaskApplicationDTO> taskAppMono) {
-        return toTaskEntityMono(taskAppMono)
+        return taskAppMono
+                .flatMap(this::validateTaskApp)
+                .flatMap(TaskMapper::toTaskEntityMono)
                 .flatMap(this::saveTask)
                 .map(TaskMapper::toTaskDTO);
     }
@@ -81,5 +90,17 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Mono<Void> deleteTask(Long id) {
         return getTaskById(id).flatMap(taskRepository::delete);
+    }
+
+    @Override
+    public Mono<TaskApplicationDTO> validateTaskApp(TaskApplicationDTO taskApp) {
+        Errors errors = new BeanPropertyBindingResult(taskApp, "taskApp");
+        taskAppValidator.validate(taskApp, errors);
+
+        if (errors.hasErrors()) {
+            return Mono.error(new InvalidTaskException(errors.getFieldError().getDefaultMessage()));
+        }
+
+        return Mono.just(taskApp);
     }
 }

@@ -36,7 +36,7 @@ public class TaskMapper {
                                 new TaskEntity(
                                         taskApp.title(),
                                         taskApp.description(),
-                                        TaskStatus.valueOf(taskApp.taskStatus()),
+                                        TaskStatus.valueOf(taskApp.status()),
                                         taskApp.userId()
                                 )
                         )

@@ -73,7 +73,7 @@ public class TaskServiceImpl implements TaskService {
     public Mono<TaskEntity> setProperties(TaskEntity taskEntity, TaskApplicationDTO taskApp) {
         taskEntity.setTitle(taskApp.title());
         taskEntity.setDescription(taskApp.description());
-        taskEntity.setTaskStatus(TaskStatus.valueOf(taskApp.taskStatus()));
+        taskEntity.setTaskStatus(TaskStatus.valueOf(taskApp.status()));
         taskEntity.setUserId(taskApp.userId());
         return Mono.just(taskEntity);
     }

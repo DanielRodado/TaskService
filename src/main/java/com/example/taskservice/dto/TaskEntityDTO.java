@@ -30,7 +30,7 @@ public class TaskEntityDTO {
         return description;
     }
 
-    public TaskStatus getTaskStatus() {
+    public TaskStatus getStatus() {
         return taskStatus;
     }
 }

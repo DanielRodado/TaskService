@@ -1,13 +1,12 @@
 package com.example.taskservice.models;
 
 import com.example.taskservice.enums.TaskStatus;
-import com.fasterxml.jackson.databind.annotation.EnumNaming;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("tasks")
-public class Task {
+public class TaskEntity {
 
     @Id
     private Long id;
@@ -19,7 +18,7 @@ public class Task {
 
     private Long userId;
 
-    public Task(String title, String description, TaskStatus taskStatus, Long userId) {
+    public TaskEntity(String title, String description, TaskStatus taskStatus, Long userId) {
         this.title = title;
         this.description = description;
         this.taskStatus = taskStatus;

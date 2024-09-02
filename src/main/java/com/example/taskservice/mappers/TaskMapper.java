@@ -27,22 +27,6 @@ public class TaskMapper {
         return taskEntityFlux.map(TaskMapper::toTaskDTO);
     }
 
-    // from entity DTO Application Mono to Entity Mono
-
-    public static Mono<TaskEntity> toTaskEntityMono(Mono<TaskApplicationDTO> taskAppMono) {
-        return taskAppMono
-                .flatMap(taskApp ->
-                        Mono.just(
-                                new TaskEntity(
-                                        taskApp.title(),
-                                        taskApp.description(),
-                                        TaskStatus.valueOf(taskApp.status().toUpperCase()),
-                                        taskApp.userId()
-                                )
-                        )
-                );
-    }
-
     // from entity DTO Application to Entity Mono
 
     public static Mono<TaskEntity> toTaskEntityMono(TaskApplicationDTO taskApp) {

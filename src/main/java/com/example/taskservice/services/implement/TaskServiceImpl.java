@@ -72,7 +72,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Mono<TaskEntityDTO> updateTask(Long id, TaskApplicationDTO taskApp) {
-        return getTaskById(id)
+        return validateTaskApp(taskApp)
+                .then(getTaskById(id))
                 .flatMap(taskEntity -> setProperties(taskEntity, taskApp))
                 .flatMap(this::saveTask)
                 .map(TaskMapper::toTaskDTO);
@@ -82,7 +83,7 @@ public class TaskServiceImpl implements TaskService {
     public Mono<TaskEntity> setProperties(TaskEntity taskEntity, TaskApplicationDTO taskApp) {
         taskEntity.setTitle(taskApp.title());
         taskEntity.setDescription(taskApp.description());
-        taskEntity.setTaskStatus(TaskStatus.valueOf(taskApp.status()));
+        taskEntity.setTaskStatus(TaskStatus.valueOf(taskApp.status().toUpperCase()));
         taskEntity.setUserId(taskApp.userId());
         return Mono.just(taskEntity);
     }

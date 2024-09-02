@@ -30,7 +30,7 @@ public class TaskController {
             summary = "Retrieve task by ID",
             description = "Fetches the User details for the given task ID.",
             parameters = @Parameter(
-                    name = "id",
+                    name = "taskId",
                     description = "The ID of the user to retrieve",
                     required = true,
                     example = "1"
@@ -76,7 +76,7 @@ public class TaskController {
                                     name = "Task create example",
                                     summary = "Task create details",
                                     description = "Example data for create a new task.",
-                                    value = "{ \"title\": \"Example Task\", \"description\": \"This is an example task\", \"status\": \"PENDING\"}"
+                                    value = "{ \"title\": \"Example Task\", \"description\": \"This is an example task\", \"status\": \"PENDING\", \"userId\": \"1\"}"
                             )
                     )
             )
@@ -115,7 +115,6 @@ public class TaskController {
                     description = "The data to update an task.",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @io.swagger.v3.oas.annotations.media.Schema(implementation = TaskApplicationDTO.class),
                             examples =  @ExampleObject(
                                     name = "Task update example",
                                     summary = "Task update details",
@@ -125,7 +124,7 @@ public class TaskController {
                     )
             ),
             parameters = @Parameter(
-                    name = "id",
+                    name = "taskId",
                     description = "The ID of the task to update.",
                     required = true,
                     example = "1"
@@ -137,7 +136,7 @@ public class TaskController {
                     description = "Task updated successfully",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = TaskApplicationDTO.class),
+                            schema = @Schema(implementation = TaskEntityDTO.class),
                             examples = @ExampleObject(
                                     name = "Task updated Example",
                                     summary = "Updated task",
@@ -166,7 +165,7 @@ public class TaskController {
             summary = "Delete an existing task",
             description = "Delete the task identified by the given ID.",
             parameters = @Parameter(
-                    name = "id",
+                    name = "taskId",
                     description = "The ID of the task to delete.",
                     required = true,
                     example = "1"
@@ -175,11 +174,13 @@ public class TaskController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "204",
-                    description = "Task updated successfully"
+                    description = "Task updated successfully",
+                    content = @Content(schema = @Schema(hidden = true))
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Task not found"
+                    description = "Task not found",
+                    content = @Content(schema = @Schema(hidden = true))
             )
     })
     @DeleteMapping("/{taskId}")

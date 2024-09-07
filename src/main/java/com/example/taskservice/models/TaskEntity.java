@@ -11,18 +11,16 @@ public class TaskEntity {
     @Id
     private Long id;
 
-    private String title, description;
+    private String title, description, userUsername;
 
     @Column("status")
     private TaskStatus taskStatus;
 
-    private Long userId;
-
-    public TaskEntity(String title, String description, TaskStatus taskStatus, Long userId) {
+    public TaskEntity(String title, String description, TaskStatus taskStatus, String userUsername) {
         this.title = title;
         this.description = description;
         this.taskStatus = taskStatus;
-        this.userId = userId;
+        this.userUsername = userUsername;
     }
 
     public Long getId() {
@@ -53,11 +51,11 @@ public class TaskEntity {
         this.taskStatus = taskStatus;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getUserUsername() {
+        return userUsername;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserUsername(String userUsername) {
+        this.userUsername = userUsername;
     }
 }

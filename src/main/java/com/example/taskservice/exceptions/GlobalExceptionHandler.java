@@ -19,4 +19,9 @@ public class GlobalExceptionHandler {
         return Mono.just(ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage()));
     }
 
+    @ExceptionHandler(TaskNotOwnedByUserException.class)
+    public Mono<ResponseEntity<String>> handleTaskNotOwnedByUserException(TaskNotOwnedByUserException ex) {
+        return Mono.just(ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage()));
+    }
+
 }

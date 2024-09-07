@@ -1,5 +1,7 @@
 package com.example.taskservice;
 
+import com.example.taskservice.enums.TaskStatus;
+import com.example.taskservice.models.TaskEntity;
 import com.example.taskservice.repositories.TaskRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -12,19 +14,19 @@ public class Utils {
     public CommandLineRunner initData(TaskRepository taskRepository) {
         return args -> {
 
-            /*TaskEntity task = new Task("Preparar desayuno", "Preparar una taza de cafe", TaskStatus.COMPLETED, 1L);
+            /*TaskEntity task = new TaskEntity("Preparar desayuno", "Preparar una taza de cafe", TaskStatus.COMPLETED, "daniel14");
             taskRepository.save(task).subscribe();
 
-            TaskEntity task2 = new Task("Hacer la cama", "Dejar la habitacion en orden", TaskStatus.PENDING, 1L);
+            TaskEntity task2 = new TaskEntity("Hacer la cama", "Dejar la habitacion en orden", TaskStatus.PENDING, "daniel14");
             taskRepository.save(task2).subscribe();
 
-            TaskEntity task3 = new Task("Ir al gimnasio", "Ir al gimnasio a hacer ejercicio", TaskStatus.IN_PROGRESS, 1L);
+            TaskEntity task3 = new TaskEntity("Ir al gimnasio", "Ir al gimnasio a hacer ejercicio", TaskStatus.IN_PROGRESS, "daniel14");
             taskRepository.save(task3).subscribe();
 
-            TaskEntity task4 = new Task("Hace la compra", "Comprar alimentos en el supermercado", TaskStatus.PENDING, 2L);
+            TaskEntity task4 = new TaskEntity("Hace la compra", "Comprar alimentos en el supermercado", TaskStatus.PENDING, "Steph23");
             taskRepository.save(task4).subscribe();
 
-            TaskEntity task5 = new Task("Leer un libro", "Leer un libro de 30 minutos", TaskStatus.COMPLETED, 2L);
+            TaskEntity task5 = new TaskEntity("Leer un libro", "Leer un libro de 30 minutos", TaskStatus.COMPLETED, "prezzz12");
             taskRepository.save(task5).subscribe();*/
 
         };

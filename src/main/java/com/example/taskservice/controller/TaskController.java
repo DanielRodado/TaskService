@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
@@ -148,5 +149,32 @@ public class TaskController {
                                                          @Parameter(hidden = true) ServerWebExchange serverWebExchange) {
         String userUsername = extractUsername(serverWebExchange);
         return taskService.updateTaskCurrentUser(taskCurrentApp, taskId, userUsername);
+    }
+
+    @Operation(
+            summary = "Delete a task by ID for authenticated user",
+            description = "Deletes an existing task identified by its ID, associated with the currently authenticated user.",
+            parameters = @Parameter(
+                    name = "id",
+                    description = "The ID of the task to delete.",
+                    required = true,
+                    example = "1"
+            )
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Task deleted successfully"
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "The task does not belong to you"
+            )
+    })
+    @DeleteMapping("/{taskId}")
+    public Mono<ResponseEntity<String>> deleteTaskFromCurrentUser(@PathVariable Long taskId,
+                                                                  @Parameter(hidden = true) ServerWebExchange serverWebExchange) {
+        String userUsername = extractUsername(serverWebExchange);
+        return taskService.deleteTaskCurrentUser(taskId, userUsername).then(Mono.just(ResponseEntity.noContent().build()));
     }
 }

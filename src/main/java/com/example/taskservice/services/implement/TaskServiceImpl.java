@@ -144,6 +144,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public Mono<Void> deleteTaskCurrentUser(Long id, String userUsername) {
+        return getTaskByIdAndUserUsername(id, userUsername).flatMap(taskRepository::delete);
+    }
+
+    @Override
     public Mono<TaskApplicationDTO> validateTaskApp(TaskApplicationDTO taskApp) {
         Errors errors = new BeanPropertyBindingResult(taskApp, "taskApp");
         taskAppValidator.validate(taskApp, errors);

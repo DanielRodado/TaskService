@@ -47,6 +47,8 @@ public interface TaskService {
 
     Mono<TaskEntity> setProperties(TaskEntity taskEntity, TaskCurrentApplicationDTO taskCurrentApp);
 
+    Mono<Void> deleteTaskCurrentUser(Long id, String userUsername);
+
     // validations
 
     Mono<TaskApplicationDTO> validateTaskApp(TaskApplicationDTO taskApp);

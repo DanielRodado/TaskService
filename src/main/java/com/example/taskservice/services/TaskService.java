@@ -1,6 +1,7 @@
 package com.example.taskservice.services;
 
 import com.example.taskservice.dto.TaskApplicationDTO;
+import com.example.taskservice.dto.TaskCurrentApplicationDTO;
 import com.example.taskservice.dto.TaskEntityDTO;
 import com.example.taskservice.models.TaskEntity;
 import reactor.core.publisher.Flux;
@@ -11,6 +12,8 @@ public interface TaskService {
     // Methods Repository
 
     Mono<TaskEntity> getTaskById(Long id);
+
+    Mono<TaskEntity> getTaskByIdAndUserUsername(Long id, String userUsername);
 
     Flux<TaskEntity> getAllTasks();
 
@@ -36,8 +39,18 @@ public interface TaskService {
 
     Mono<Void> deleteTask(Long id);
 
+    // Methods Controller Current
+
+    Mono<TaskEntityDTO> createNewTaskCurrentUser(Mono<TaskCurrentApplicationDTO> taskCurrentAppMono, String userUsername);
+
+    Mono<TaskEntityDTO> updateTaskCurrentUser(TaskCurrentApplicationDTO taskCurrentApp, Long taskId, String userUsername);
+
+    Mono<TaskEntity> setProperties(TaskEntity taskEntity, TaskCurrentApplicationDTO taskCurrentApp);
+
     // validations
 
     Mono<TaskApplicationDTO> validateTaskApp(TaskApplicationDTO taskApp);
+
+    Mono<TaskCurrentApplicationDTO> validateTaskCurrentApp(TaskCurrentApplicationDTO taskCurrentApp);
 
 }

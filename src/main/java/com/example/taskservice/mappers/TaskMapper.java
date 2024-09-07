@@ -1,6 +1,7 @@
 package com.example.taskservice.mappers;
 
 import com.example.taskservice.dto.TaskApplicationDTO;
+import com.example.taskservice.dto.TaskCurrentApplicationDTO;
 import com.example.taskservice.dto.TaskEntityDTO;
 import com.example.taskservice.enums.TaskStatus;
 import com.example.taskservice.models.TaskEntity;
@@ -36,6 +37,17 @@ public class TaskMapper {
                         taskApp.description(),
                         TaskStatus.valueOf(taskApp.status().toUpperCase()),
                         taskApp.userUsername()
+                )
+        );
+    }
+
+    public static Mono<TaskEntity> toTaskEntityMono(TaskCurrentApplicationDTO taskCurrentApp, String userUsername) {
+        return Mono.just(
+                new TaskEntity(
+                        taskCurrentApp.title(),
+                        taskCurrentApp.description(),
+                        TaskStatus.valueOf(taskCurrentApp.status().toUpperCase()),
+                        userUsername
                 )
         );
     }

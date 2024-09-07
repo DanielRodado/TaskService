@@ -12,6 +12,7 @@ import com.example.taskservice.models.TaskEntity;
 import com.example.taskservice.repositories.TaskRepository;
 import com.example.taskservice.services.TaskService;
 import com.example.taskservice.validations.TaskAppValidator;
+import com.example.taskservice.validations.TaskCurrentAppValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -29,6 +30,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private TaskAppValidator taskAppValidator;
+
+    @Autowired
+    private TaskCurrentAppValidator taskCurrentAppValidator;
 
     // Methods Repository
 
@@ -154,7 +158,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Mono<TaskCurrentApplicationDTO> validateTaskCurrentApp(TaskCurrentApplicationDTO taskCurrentApp) {
         Errors errors = new BeanPropertyBindingResult(taskCurrentApp, "taskCurrentApp");
-        taskAppValidator.validate(taskCurrentApp, errors);
+        taskCurrentAppValidator.validate(taskCurrentApp, errors);
 
         if (errors.hasErrors()) {
             return Mono.error(new InvalidTaskException(errors.getFieldError().getDefaultMessage()));

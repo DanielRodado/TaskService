@@ -65,6 +65,26 @@ public class TaskController {
     }
 
     @Operation(
+            summary = "Retrieve tasks by user",
+            description = "Gets the tasks of a user by the given user username.",
+            parameters = @Parameter(
+                    name = "username",
+                    description = "The username of the user to whom the tasks belong.",
+                    required = true,
+                    example = "john"
+            )
+    )
+    @ApiResponse(
+                    responseCode = "200",
+                    description = "Tasks retrieved successfully",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = TaskEntityDTO.class))
+    )
+    @GetMapping("/user/{username}")
+    public Flux<TaskEntityDTO> getAllTaskFromUser(@PathVariable String username) {
+        return taskService.getAllTasksDTOByUser(username);
+    };
+
+    @Operation(
             summary = "Create a new task",
             description = "Create a new task with the provided details.",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(

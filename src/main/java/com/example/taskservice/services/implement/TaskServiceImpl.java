@@ -43,6 +43,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public Flux<TaskEntity> getAllTasksByUser(String userUsername) {
+        return taskRepository.findByUserUsername(userUsername);
+    }
+
+    @Override
     public Mono<TaskEntity> saveTask(TaskEntity taskEntity) {
         return taskRepository.save(taskEntity);
     }
@@ -57,6 +62,11 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Flux<TaskEntityDTO> getAllTasksDTO() {
         return toTaskDTOFlux(getAllTasks());
+    }
+
+    @Override
+    public Flux<TaskEntityDTO> getAllTasksDTOByUser(String userUsername) {
+        return toTaskDTOFlux(getAllTasksByUser(userUsername));
     }
 
     // Methods Controller
@@ -84,7 +94,6 @@ public class TaskServiceImpl implements TaskService {
         taskEntity.setTitle(taskApp.title());
         taskEntity.setDescription(taskApp.description());
         taskEntity.setTaskStatus(TaskStatus.valueOf(taskApp.status().toUpperCase()));
-        taskEntity.setUserId(taskApp.userId());
         return Mono.just(taskEntity);
     }
 

@@ -14,6 +14,8 @@ public interface TaskService {
 
     Flux<TaskEntity> getAllTasks();
 
+    Flux<TaskEntity> getAllTasksByUser(String userUsername);
+
     Mono<TaskEntity> saveTask(TaskEntity taskEntity);
 
     // Repository methods returning a DTO
@@ -21,6 +23,8 @@ public interface TaskService {
     Mono<TaskEntityDTO> getTaskDTOById(Long id);
 
     Flux<TaskEntityDTO> getAllTasksDTO();
+
+    Flux<TaskEntityDTO> getAllTasksDTOByUser(String userUsername);
 
     // Methods Controller
 

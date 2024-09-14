@@ -2,6 +2,14 @@
 
 TaskService es un microservicio que forma parte de una arquitectura de microservicios diseñada para la gestión de tareas. Este servicio maneja las operaciones relacionadas con la creación, actualización, eliminación y consulta de tareas. Utiliza tecnologías modernas para garantizar un rendimiento eficiente y una experiencia de usuario óptima.
 
+## Arquitectura
+
+El **TaskService** es parte de una arquitectura de microservicios compuesta por los siguientes componentes:
+
+- **[Gateway Service](https://github.com/DanielRodado/GatewayService-ToDoList)**: Actúa como punto de entrada a todo el sistema y enruta las solicitudes a los diferentes microservicios.
+- **[Eureka Server](https://github.com/DanielRodado/EurekaServer-ToDoList)**: Registro y descubrimiento de servicios.
+- **[User Service](https://github.com/DanielRodado/UserService-ToDoList)**: Servicio encargado de la gestión de usuarios.
+
 ## Tecnologías Usadas
 
 - **Java 17**
